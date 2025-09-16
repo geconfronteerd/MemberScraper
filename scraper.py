@@ -1,8 +1,10 @@
-import websocket
+import os
 import json
+import subprocess
+import sys
+import websocket
 import threading
 import time
-import os
 from typing import Optional
 
 def load_config():
@@ -13,6 +15,23 @@ def load_config():
         except json.JSONDecodeError:
             print("[CONFIG] Warning: config.json is not valid JSON.")
     return {}
+
+def install_requirements():
+    if os.path.exists('requirements.txt'):
+        print("[SETUP] Installing dependencies from requirements.txt...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+    else:
+        print("[SETUP] requirements.txt not found, skipping installation.")
+
+def create_output_folder():
+    folder = 'scraped_data'
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+        print(f"[SETUP] Created folder: {folder}")
+
+# Run setup on script start
+install_requirements()
+create_output_folder()
     
 
 def get_token() -> Optional[str]:
