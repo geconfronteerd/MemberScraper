@@ -1,6 +1,6 @@
 # My Discord Self-Bot
 
-A tool for automation and testing in Discord (for educational purposes).
+A multi tool that makes your Discord experience better!
 
 ---
 
