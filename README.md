@@ -1,12 +1,17 @@
-# My Discord Self-Bot Project
+# My Discord Self-Bot
+
+A tool for automation and testing in Discord (for educational purposes).
+
+---
 
 ## ⚠️ Disclaimer
 
-Please read the [DISCLAIMER.md](./DISCLAIMER.md) before using this project.
+Please read the [Disclaimer](./DISCLAIMER.md) before using this project.  
+Use at your own risk. The author is not responsible for any consequences.
 
 ---
 
 ## Features
-- Feature 1
-- Feature 2
-...
+- Auto reply
+- Command support
+- Experimental tools
