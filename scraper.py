@@ -23,6 +23,12 @@ def install_requirements():
     else:
         print("[SETUP] requirements.txt not found, skipping installation.")
 
+def create_output_folder():
+    """Create scraped_data folder if it doesn't exist"""
+    if not os.path.exists('scraped_data'):
+        os.makedirs('scraped_data')
+        print("[FOLDER] Created 'scraped_data' folder")
+
 
 # Run setup on script start
 install_requirements()
@@ -110,13 +116,6 @@ no_new_count = 0  # stop condition if nothing new shows up
 ws = None
 heartbeat_thread = None
 member_data = []  # Store full member data for processing
-
-
-def create_output_folder():
-    """Create scraped_data folder if it doesn't exist"""
-    if not os.path.exists('scraped_data'):
-        os.makedirs('scraped_data')
-        print("[FOLDER] Created 'scraped_data' folder")
 
 
 def save_data():
