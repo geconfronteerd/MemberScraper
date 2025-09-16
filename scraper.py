@@ -23,11 +23,6 @@ def install_requirements():
     else:
         print("[SETUP] requirements.txt not found, skipping installation.")
 
-def create_output_folder():
-    folder = 'scraped_data'
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-        print(f"[SETUP] Created folder: {folder}")
 
 # Run setup on script start
 install_requirements()
