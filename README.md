@@ -1,11 +1,8 @@
 # My Discord Self-Bot Project
 
-> ⚠️ **Disclaimer**
+## ⚠️ Disclaimer
 
-> This project is intended for educational and experimental purposes only.  
-> This self-bot violates [Discord's Terms of Service](https://discord.com/terms).  
-> By using this tool, you acknowledge that you do so **at your own risk**.  
-> The author is **not responsible** for any bans, warnings, or consequences.
+Please read the [DISCLAIMER.md](./DISCLAIMER.md) before using this project.
 
 ---
 
