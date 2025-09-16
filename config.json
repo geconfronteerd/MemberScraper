@@ -1,0 +1,6 @@
+{
+  "use_token_from_file": true,
+  "token": "your_hardcoded_token_here",
+  "use_guild_id_from_file": false,
+  "guild_id": ""
+}
