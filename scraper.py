@@ -5,6 +5,15 @@ import time
 import os
 from typing import Optional
 
+def load_config():
+    if os.path.exists('config.json'):
+        try:
+            with open('config.json', 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            print("[CONFIG] Warning: config.json is not valid JSON.")
+    return {}
+    
 
 def get_token() -> Optional[str]:
     """Get Discord token from user with better instructions"""
