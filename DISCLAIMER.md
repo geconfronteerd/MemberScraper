@@ -7,4 +7,4 @@
 - By using this tool, you acknowledge that you are **doing so at your own risk**.
 - The author **does not take any responsibility** for account bans, warnings, or any other consequences that may result from the use of this project.
 
-Please use responsibly, and ensure you fully understand the risks involved before proceeding
+Please use responsibly, and ensure you fully understand the risks involved before proceeding.
