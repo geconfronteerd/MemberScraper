@@ -1,12 +1,10 @@
-Disclaimer
+## ⚠️ Disclaimer
 
-This project is intended for educational and experimental purposes only.
+> **Important Notice:**  
+> This project is intended **solely for educational and experimental purposes**.
 
-This self-bot violates Discord's Terms of Service
-.
+- This is a **self-bot**, which **violates [Discord’s Terms of Service](https://discord.com/terms)**.
+- By using this tool, you acknowledge that you are **doing so at your own risk**.
+- The author **does not take any responsibility** for account bans, warnings, or any other consequences that may result from the use of this project.
 
-By choosing to use this tool, you acknowledge that you do so at your own risk.
-
-The author is not responsible for any account bans, warnings, or other consequences resulting from its use.
-
-Please use responsibly and understand the risks involved.
+Please use responsibly, and ensure you fully understand the risks involved before proceeding.
