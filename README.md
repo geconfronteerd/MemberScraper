@@ -14,4 +14,4 @@ Use at your own risk. The author is not responsible for any consequences.
 ## Features
 - Scrapes members from a specific Discord server.
 - Multi token support (WIP)
-- 
+
