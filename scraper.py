@@ -29,14 +29,17 @@ def create_output_folder():
         os.makedirs('scraped_data')
         print("[FOLDER] Created 'scraped_data' folder")
 
-
 # Run setup on script start
 install_requirements()
 create_output_folder()
-    
 
-def get_token() -> Optional[str]:
-    """Get Discord token from user with better instructions"""
+def get_token(config: dict) -> Optional[str]:
+    """Get Discord token from config or user input"""
+    # Check if we should use token from config file
+    if config.get('use_token_from_file', False) and config.get('token'):
+        print("[CONFIG] Using token from config.json")
+        return config['token']
+    
     print("🔐 Discord Token Setup")
     print("=" * 60)
     print("To get your Discord token:")
@@ -67,9 +70,13 @@ def get_token() -> Optional[str]:
 
     return token
 
-
-def get_guild_id() -> Optional[str]:
-    """Get Discord Guild ID from user with instructions"""
+def get_guild_id(config: dict) -> Optional[str]:
+    """Get Discord Guild ID from config or user input"""
+    # Check if we should use guild_id from config file
+    if config.get('use_guild_id_from_file', False) and config.get('guild_id'):
+        print(f"[CONFIG] Using guild_id from config.json: {config['guild_id']}")
+        return str(config['guild_id'])
+    
     print("\n🏰 Discord Guild ID Setup")
     print("=" * 60)
     print("To get your Discord Guild (Server) ID:")
@@ -101,11 +108,17 @@ def get_guild_id() -> Optional[str]:
 
     return guild_id
 
-
-# Configuration
-token = None  # Will be obtained from user input
-guild_id = None  # Will be obtained from user input
-channel_id = "1154080170056097792"  # You might want to make this configurable too
+def get_channel_id(config: dict) -> str:
+    """Get Channel ID from config or use default"""
+    # Check if we should use channel_id from config file
+    if config.get('use_channel_id_from_file', False) and config.get('channel_id'):
+        print(f"[CONFIG] Using channel_id from config.json: {config['channel_id']}")
+        return str(config['channel_id'])
+    else:
+        # Default channel ID
+        default_channel = "1154080170056097792"
+        print(f"[CONFIG] Using default channel_id: {default_channel}")
+        return default_channel
 
 # Global variables
 heartbeat_interval = None
@@ -117,6 +130,10 @@ ws = None
 heartbeat_thread = None
 member_data = []  # Store full member data for processing
 
+# Configuration variables - will be set from config or user input
+token = None
+guild_id = None
+channel_id = None
 
 def save_data():
     """Save collected data to files"""
@@ -154,7 +171,6 @@ def save_data():
     print(f"  - {len(usernames)} total usernames")
     print(f"  - Full data in data.json")
 
-
 def heartbeat():
     """Send heartbeat to keep connection alive"""
     while heartbeat_interval and ws and ws.sock and ws.sock.connected:
@@ -164,7 +180,6 @@ def heartbeat():
         except Exception as e:
             print(f"[HEARTBEAT] Error: {e}")
             break
-
 
 def request_range(start, end):
     """Request a range of members"""
@@ -181,7 +196,6 @@ def request_range(start, end):
         }
     }
     ws.send(json.dumps(payload))
-
 
 def on_message(ws, message):
     global heartbeat_interval, next_range_start, no_new_count, heartbeat_thread
@@ -265,40 +279,42 @@ def on_message(ws, message):
     except Exception as e:
         print(f"[ERROR] Error processing message: {e}")
 
-
 def on_error(ws, error):
     print(f"[ERROR] WebSocket error: {error}")
-
 
 def on_close(ws, close_status_code, close_msg):
     print("[WS] Connection closed")
     if heartbeat_thread and heartbeat_thread.is_alive():
         heartbeat_interval = None
 
-
 def on_open(ws):
     print("[WS] Connected to Discord Gateway")
 
-
 def main():
-    global ws, token, guild_id
+    global ws, token, guild_id, channel_id
 
     print("Starting Discord member scraper...")
     print("⚠️  Warning: Make sure you have permission to scrape this server")
     print("⚠️  Using user tokens may violate Discord's Terms of Service")
     print()
 
-    # Get token from user
-    token = get_token()
+    # Load configuration first
+    config = load_config()
+    
+    # Get token from config or user input
+    token = get_token(config)
     if not token:
         print("Exiting...")
         return
 
-    # Get guild ID from user
-    guild_id = get_guild_id()
+    # Get guild ID from config or user input
+    guild_id = get_guild_id(config)
     if not guild_id:
         print("Exiting...")
         return
+    
+    # Get channel ID from config or use default
+    channel_id = get_channel_id(config)
 
     print(f"\n🎯 Target Server: {guild_id}")
     print(f"📡 Target Channel: {channel_id}")
@@ -320,7 +336,6 @@ def main():
         if member_data:
             save_data()
         ws.close()
-
 
 if __name__ == "__main__":
     main()
